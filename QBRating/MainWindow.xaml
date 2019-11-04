@@ -1,0 +1,89 @@
+﻿<Window x:Class="QBRating.MainWindow"
+		xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+		xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+		xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+		xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+		xmlns:sys="clr-namespace:System;assembly=mscorlib"
+		mc:Ignorable="d"
+		Title="MainWindow" Height="445" Width="400">
+	<Window.Background>
+		<LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
+			<GradientStop Color="#FF2E7483"/>
+			<GradientStop Color="#FFF79393" Offset="1"/>
+		</LinearGradientBrush>
+	</Window.Background>
+
+	<Grid Margin="10">
+		<Grid.Resources>
+			<Style TargetType="{x:Type TextBox}">
+				<Setter Property="Validation.ErrorTemplate">
+					<Setter.Value>
+						<ControlTemplate>
+							<DockPanel LastChildFill="True">
+								<TextBlock DockPanel.Dock="Right" Foreground="DarkRed" FontSize="10pt"
+										   Text="{Binding ElementName=MyAdorner, 
+									Path=AdornedElement.(Validation.Errors)[0].ErrorContent}">
+								</TextBlock>
+								<Border BorderBrush="DarkRed" BorderThickness="2">
+									<AdornedElementPlaceholder Name="MyAdorner" />
+								</Border>
+							</DockPanel>
+						</ControlTemplate>
+					</Setter.Value>
+				</Setter>
+			</Style>
+		</Grid.Resources>
+		<Grid.ColumnDefinitions>
+			<ColumnDefinition Width="66*"/>
+			<ColumnDefinition Width="34*"/>
+		</Grid.ColumnDefinitions>
+		<Grid.RowDefinitions>
+			<RowDefinition Height="Auto"/>
+			<RowDefinition Height="Auto"/>
+			<RowDefinition Height="Auto"/>
+			<RowDefinition Height="Auto"/>
+			<RowDefinition Height="Auto"/>
+			<RowDefinition Height="Auto"/>
+			<RowDefinition Height="Auto"/>
+			<RowDefinition Height="Auto"/>
+			<RowDefinition Height="Auto"/>
+			<RowDefinition Height="Auto"/>
+		</Grid.RowDefinitions>
+
+		<Label Grid.Row="0" Grid.ColumnSpan="2" Content="QB Rating Calculator" HorizontalAlignment="Center" FontSize="24" FontWeight="Bold"/>
+		<Label Grid.Row="1" Grid.ColumnSpan="2" Content="All fields are required and are whole digits"/>
+		<StackPanel Grid.Row="2" Grid.ColumnSpan="2">
+			<Label Content="Attempts:"/>
+			<TextBox Margin="5,0,0,0" Text="{Binding ThrowAttempts, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, TargetNullValue={x:Static sys:String.Empty}, ValidatesOnExceptions=True}" Width="50" HorizontalAlignment="Left"/>
+		</StackPanel>
+		<StackPanel Grid.Row="3" Grid.ColumnSpan="2">
+			<Label Content="Passes Completed:"/>
+			<TextBox Margin="5,0,0,0" Text="{Binding PassCompletion, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, TargetNullValue={x:Static sys:String.Empty}, ValidatesOnExceptions=True}" Width="50" HorizontalAlignment="Left"/>
+		</StackPanel>
+		<StackPanel Grid.Row="4" Grid.ColumnSpan="2">
+			<Label Content="Total Yards Thrown:"/>
+			<TextBox Margin="5,0,0,0" Text="{Binding PassingYards, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, TargetNullValue={x:Static sys:String.Empty}, ValidatesOnExceptions=True}" Width="50" HorizontalAlignment="Left"/>
+		</StackPanel>
+		<StackPanel Grid.Row="5" Grid.ColumnSpan="2">
+			<Label Content="Touchdowns:"/>
+			<TextBox Margin="5,0,0,0" Text="{Binding Touchdowns, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, TargetNullValue={x:Static sys:String.Empty}, ValidatesOnExceptions=True}" Width="50" HorizontalAlignment="Left"/>
+		</StackPanel>
+		<StackPanel Grid.Row="6" Grid.ColumnSpan="2">
+			<Label Content="Interceptions:"/>
+			<TextBox Margin="5,0,0,0" Text="{Binding Interceptions, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, TargetNullValue={x:Static sys:String.Empty}, ValidatesOnExceptions=True}" Width="50" HorizontalAlignment="Left"/>
+		</StackPanel>
+		
+		<WrapPanel Grid.Row="7" Grid.ColumnSpan="2">
+			<Label Content="Select Passer Rating Formula:"/>
+			<StackPanel Margin="0,6">
+				<RadioButton Content="NFL" VerticalAlignment="Center" IsChecked="{Binding NFLIsChecked, Mode=TwoWay}"/>
+				<RadioButton Content="NCAA" VerticalAlignment="Center" IsChecked="{Binding NCAAIsChecked, Mode=TwoWay}"/>
+			</StackPanel>
+		</WrapPanel>
+		<StackPanel Grid.Row="8" Grid.ColumnSpan="2">
+			<Label Content="Passer Rating Result:"/>
+			<Label Content="{Binding PasserRatingResult, Mode=OneWay}" FontSize="16" Margin="20,4,0,0" MinHeight="30" FontWeight="Bold"/>
+		</StackPanel>
+		<Button Grid.Row="9" Grid.Column="1" Content="Reset" Command="{Binding ResetCommand}" Width="50" HorizontalAlignment="Left"/>
+	</Grid>
+</Window>
